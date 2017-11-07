@@ -38,4 +38,12 @@ public class BottlesTest {
 
         assertThat(bottles.verse(2), is(expected));
     }
+
+    @Test
+    public void testVerse1() throws Exception {
+        String expected = "1 bottle of beer on the wall, 1 bottle of beer.\n" +
+                "Take it down and pass it around, no more bottles of beer on the wall.";
+
+        assertThat(bottles.verse(1), is(expected));
+    }
 }
