@@ -2,6 +2,9 @@ package io.indrek.beer;
 
 public class Bottles {
 
+    private static final String NUM_BOTTLES = "${numBottles}";
+    private static final String NUM_BOTTLES_AFTER = "${numBottlesAfter}";
+    private static final String BOTTLE_PRONOUN = "${one}";
     private final String VERSE_TEMPLATE = "${numBottles} of beer on the wall, ${numBottles} of beer.\n" +
             "Take ${one} down and pass it around, ${numBottlesAfter} of beer on the wall.";
 
@@ -10,9 +13,9 @@ public class Bottles {
     }
 
     private String constructVerse(int verseNumber) {
-        String verse = VERSE_TEMPLATE.replace("${numBottles}", bottlesBefore(verseNumber));
-        verse = verse.replace("${numBottlesAfter}", bottlesAfter(verseNumber));
-        verse = verse.replace("${one}", bottlePronoun(verseNumber));
+        String verse = VERSE_TEMPLATE.replace(NUM_BOTTLES, bottlesBefore(verseNumber));
+        verse = verse.replace(NUM_BOTTLES_AFTER, bottlesAfter(verseNumber));
+        verse = verse.replace(BOTTLE_PRONOUN, bottlePronoun(verseNumber));
         return verse;
     }
 
@@ -21,15 +24,17 @@ public class Bottles {
     }
 
     private CharSequence bottlesBefore(int verseNumber) {
-        String bottles = verseNumber == 1 ? "bottle" : "bottles";
-        return verseNumber + " " + bottles;
+        return verseNumber + " " + bottleNumber(verseNumber);
     }
 
     private CharSequence bottlesAfter(int verseNumber) {
         int bottlesAfter = verseNumber - 1;
         String amount = bottlesAfter == 0 ? "no more" : Integer.toString(bottlesAfter);
-        String bottles = (bottlesAfter) == 1 ? "bottle" : "bottles";
-        return amount + " " + bottles;
+        return amount + " " + bottleNumber(bottlesAfter);
+    }
+
+    private String bottleNumber(int verseNumber) {
+        return verseNumber == 1 ? "bottle" : "bottles";
     }
 
 }
